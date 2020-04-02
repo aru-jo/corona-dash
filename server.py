@@ -9,6 +9,7 @@ from datetime import datetime
 # a script to prettify json return from esri arcgis covid data
 # to provide a much clearer endpoint for critical data than arcGIS
 # updated as soon as it is updated in the covid-19 api
+# server script flask api 
 
 if __name__ == '__main__':
 	app = flask.Flask(__name__)
