@@ -31,8 +31,12 @@ if __name__ == '__main__':
 			# TO-DO : A more robust way to deal with variable order for .values()
 			row[-1] /= 1000
 			row[-1] = datetime.utcfromtimestamp(row[-1]).strftime('%Y-%m-%d %H:%M:%S')
-			row.append(round((row[3]/row[1])*100, 2))
-			row.append(round((row[2]/row[1])*100, 2))
+			if row[1]:
+				row.append(round((row[3] / row[1]) * 100, 2))
+				row.append(round((row[2]/row[1])*100, 2))
+			else:
+				row.append(0)
+				row.append(0)
 			lst.append(row)
 		lst.sort(key=lambda x: x[1], reverse=True)
 		# return jsonify(lst)
