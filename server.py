@@ -22,29 +22,25 @@ if __name__ == '__main__':
 
 	@app.route('/display', methods=['GET'])
 	def display_data():
-		lst = []
-		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt.pkl')):
-			with open('covid_msrt.pkl', 'rb') as f_ptr:
-				countries_dict = pickle.load(f_ptr)
-		for country_dict in countries_dict:
-			row = list(country_dict.values())
+		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_sort.pkl')):
+			with open('covid_msrt_sort.pkl', 'rb') as f_ptr:
+				countries_list = pickle.load(f_ptr)
+		for row in countries_list:
 			# TO-DO : A more robust way to deal with variable order for .values()
 			row[-1] /= 1000
 			row[-1] = datetime.utcfromtimestamp(row[-1]).strftime('%Y-%m-%d %H:%M:%S')
 			if row[1]:
 				row.append(round((row[3] / row[1]) * 100, 2))
-				row.append(round((row[2]/row[1])*100, 2))
+				row.append(round((row[2] / row[1]) * 100, 2))
 			else:
 				row.append(0)
 				row.append(0)
-			lst.append(row)
-		lst.sort(key=lambda x: x[1], reverse=True)
-		return render_template('table_view.html', table=lst)
+		return render_template('table_view.html', table=countries_list)
 
 	@app.route('/api', methods=['GET'])
 	def return_data():
-		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt.pkl')):
-			with open('covid_msrt.pkl', 'rb') as f_ptr:
+		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_api.pkl')):
+			with open('covid_msrt_api.pkl', 'rb') as f_ptr:
 				covid_data = pickle.load(f_ptr)
 		else:
 			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
