@@ -41,7 +41,6 @@ if __name__ == '__main__':
 		lst.sort(key=lambda x: x[1], reverse=True)
 		return render_template('table_view.html', table=lst)
 
-
 	@app.route('/api', methods=['GET'])
 	def return_data():
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt.pkl')):

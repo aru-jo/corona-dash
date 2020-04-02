@@ -3,19 +3,22 @@
 <head>
 	<title>COVID -19 CASES</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="{{ url_for('static', filename='js/sorttable.js') }}"></script>
 </head>
 <body>
 <h1><center><samp> COVID - 19 CASES OVERVIEW </samp></center></h1>
-		<table class = "table table-sm table-bordered table-striped table-hover table-dark" style="width:70%" align="center">
+		<form method="POST">
+		<table class = "sortable table table-sm table-bordered table-striped table-hover table-dark" style="width:70%" align="center">
 			<thead>
 				<tr>
-					<th scope="col"> <button type="button" class="btn btn-dark btn-sm btn-block" id = "co"> Country </button> </th>
-					<th scope="col"> <button type="button" class="btn btn-dark btn-sm btn-block" id = "con"> Confirmed </button></th>
-					<th scope="col"> <button type="button" class="btn btn-dark btn-sm btn-block" id = "r"> Recovered </button></th>
-					<th scope="col"> <button type="button" class="btn btn-dark btn-sm btn-block" id = "d"> Deaths </button></th>
-					<th scope="col"> <button type="button" class="btn btn-dark btn-sm btn-block" id = "l" > Last Updated (GMT) </button></th>
-					<th scope="col"> <button type="button" class="btn btn-dark btn-sm btn-block" id = "rec"> Recovery Rate (%) </button></th>
-					<th scope="col"> <button type="button" class="btn btn-dark btn-sm btn-block" id = "dr"> Death Rate (%) </button></th>
+					<th scope="col"> Country </th>
+					<th scope="col"> Confirmed </th>
+					<th scope="col"> Recovered </th>
+					<th scope="col"> Deaths </th>
+					<th scope="col"> Last Updated (GMT) </th>
+					<th scope="col"> Recovery Rate (%) </th>
+					<th scope="col"> Death Rate (%) </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,5 +35,6 @@
 			{% endfor %}
 			</tbody>
 		</table>
+		</form>
 </body>
 </html>
