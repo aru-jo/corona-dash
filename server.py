@@ -22,20 +22,22 @@ if __name__ == '__main__':
 
 	@app.route('/display', methods=['GET'])
 	def display_data():
+		last_time = False
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_sort.pkl')):
 			with open('covid_msrt_sort.pkl', 'rb') as f_ptr:
 				countries_list = pickle.load(f_ptr)
 		for row in countries_list:
 			# TO-DO : A more robust way to deal with variable order for .values()
-			row[-1] /= 1000
-			row[-1] = datetime.utcfromtimestamp(row[-1]).strftime('%Y-%m-%d %H:%M:%S')
+			if row[0].strip() == 'US':
+				converted_time = row[-1] / 1000
+				last_time = datetime.utcfromtimestamp(converted_time).strftime('%Y-%m-%d %H:%M:%S')
 			if row[1]:
 				row.append(round((row[3] / row[1]) * 100, 2))
 				row.append(round((row[2] / row[1]) * 100, 2))
 			else:
 				row.append(0)
 				row.append(0)
-		return render_template('table_view.html', table=countries_list)
+		return render_template('table_view.html', table=countries_list, last_updated=last_time)
 
 	@app.route('/api', methods=['GET'])
 	def return_data():
@@ -47,6 +49,4 @@ if __name__ == '__main__':
 		return jsonify(covid_data)
 
 	app.run(host='0.0.0.0')
-
-
 
