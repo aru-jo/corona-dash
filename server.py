@@ -5,7 +5,7 @@ import pickle
 import os
 import pandas as pd
 from datetime import datetime
-
+from dateutil import tz
 # a script to prettify json return from esri arcgis covid data
 # to provide a much clearer endpoint for critical data than arcGIS
 # updated as soon as it is updated in the covid-19 api
@@ -22,7 +22,9 @@ if __name__ == '__main__':
 
 	@app.route('/display', methods=['GET'])
 	def display_data():
-		last_time = False
+		local_time = False
+		from_zone = tz.gettz('UTC')
+		to_zone = tz.tzlocal()
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_sort.pkl')):
 			with open('covid_msrt_sort.pkl', 'rb') as f_ptr:
 				countries_list = pickle.load(f_ptr)
@@ -30,14 +32,16 @@ if __name__ == '__main__':
 			# TO-DO : A more robust way to deal with variable order for .values()
 			if row[0].strip() == 'US':
 				converted_time = row[-1] / 1000
-				last_time = datetime.utcfromtimestamp(converted_time).strftime('%Y-%m-%d %H:%M:%S')
+				last_time = datetime.utcfromtimestamp(converted_time).replace(tzinfo=from_zone)
+				local_time = last_time.astimezone(to_zone).strftime('%d %b %Y %H:%M')
+
 			if row[1]:
 				row.append(round((row[3] / row[1]) * 100, 2))
 				row.append(round((row[2] / row[1]) * 100, 2))
 			else:
 				row.append(0)
 				row.append(0)
-		return render_template('table_view.html', table=countries_list, last_updated=last_time)
+		return render_template('table_view.html', table=countries_list, last_updated=local_time)
 
 	@app.route('/api', methods=['GET'])
 	def return_data():
