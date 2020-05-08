@@ -17,8 +17,17 @@ if __name__ == '__main__':
 
 	@app.route('/', methods=['GET'])
 	def home_page():
-		return "<h1> NOW SERVING COVID-19 FLASK PYTHON API </h1>"
-
+		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_news.pkl')):
+			with open('covid_msrt_news.pkl', 'rb') as f_ptr:
+				covid_news_data = pickle.load(f_ptr)
+		else:
+			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
+		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_sort.pkl')):
+			with open('covid_msrt_sort.pkl', 'rb') as f_ptr:
+				covid_news_sort = pickle.load(f_ptr)
+		else:
+			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
+		return render_template('index.html', total_cases = covid_news_data[-1], covid_news_sort=covid_news_sort)
 
 	@app.route('/display', methods=['GET'])
 	def display_data():
@@ -51,6 +60,16 @@ if __name__ == '__main__':
 		else:
 			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
 		return jsonify(covid_data)
+	
+	@app.route('/news', methods=['GET'])
+	def get_news():
+		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_news.pkl')):
+			with open('covid_msrt_news.pkl', 'rb') as f_ptr:
+				covid_news_data = pickle.load(f_ptr)
+		else:
+			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
+		return render_template('news_view.html', news_data = covid_news_data, length=len(covid_news_data))
+
 
 	app.run(host='0.0.0.0')
 

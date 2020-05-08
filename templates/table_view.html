@@ -2,19 +2,36 @@
 <html>
 <head>
 	<title>COVID -19 CASES</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="static/css/stylesheet.css"> 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="{{ url_for('static', filename='js/sorttable.js') }}"></script>
 </head>
 <body>
-<div style="margin-top:15px; margin-left:13%; margin-right:31%" class="alert alert-primary" align="center">
-	<h1><samp> COVID - 19 CASES OVERVIEW </samp></h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CoronaDash</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="/">Home</a>
+      <a class="nav-item nav-link" href="/news">News</a>
+      <a class="nav-item nav-link active" href="/display">Cases</a>
+      <a class="nav-item nav-link" href="/api">API</a>
+    </div>
+  </div>
+</nav>
+<div class="text-primary" align="center">
+	<h1><strong>COVID - 19 CASES OVERVIEW</strong></h1>
 </div>
-<!-- <div style="float:right; margin-right:15px;" class="alert alert-success" align="center"-->
-	<h6><samp> <LAST UPDATED: {{ last_updated }} </samp></h6>
-<!-- </div-->
-<div style="margin-left:100px;">
-	<table class = "sortable table table-sm table-bordered table-striped table-hover table-dark" style="width:60%" align="center">
+<div class="text-success" align="center">
+	<h6><samp> LAST UPDATED: {{ last_updated }} </samp></h6>
+</div>
+<div class="custom-scroll scroll-y">
+	<table class = "sortable table table-sm table-bordered table-striped table-hover table-light" style="width:60%" align="center">
 			<thead>
 				<tr>
 					<th scope="col"> Country </th>

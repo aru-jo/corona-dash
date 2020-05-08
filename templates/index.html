@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>COVID -19 AGGREGATOR</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/stylesheet.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="{{ url_for('static', filename='js/sorttable.js') }}"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CoronaDash</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/">Home</a>
+      <a class="nav-item nav-link" href="/news">News</a>
+      <a class="nav-item nav-link" href="/display">Cases</a>
+      <a class="nav-item nav-link" href="/api">API</a>
+    </div>
+  </div>
+</nav>
+<div class="row-sm-auto" align="center">
+  <h4><span class="badge badge-warning">Worldwide Stats</span></h4>
+</div>
+<div>
+  <table class = "table table-sm table-bordered table-hover" style="width:auto;" align="center">
+      <tbody>
+      {% for r in total_cases %}
+        <tr>
+                    <td><span class="badge badge-success"> {{ r[0] }} </span></td>
+                    <td><strong>{{ r[1] }}</strong></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+<div class="text-primary" align="center">
+  <h1><strong>COVID - 19 CASES OVERVIEW</strong></h1>
+</div>
+</body>
+</html>
