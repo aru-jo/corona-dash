@@ -30,7 +30,7 @@
 <div class="row-sm-auto" align="center">
 	<h4><span class="badge badge-warning">Top Headlines</span></h4>
 </div>
-{% for i in range(0, length-1) %}
+{% for i in range(0, length) %}
 <div class="row justify-content-center">
 	<div class="col-sm-auto"><a href="{{ news_data[i][3] }}">{{ news_data[i][1] }}</a></div>
 	<div class="col-sm-auto"><span class="badge badge-success">{{ news_data[i][0] }}</span></div>

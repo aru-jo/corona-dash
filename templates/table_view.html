@@ -8,6 +8,14 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="{{ url_for('static', filename='js/sorttable.js') }}"></script>
+	<script type="text/javascript">
+		function myFunction() {
+  			var x = document.getElementById("totalCases");
+ 			if (x.style.display === "none")
+ 			{x.style.display = "block";} 
+    		else {x.style.display = "none";}
+			}
+	</script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,7 +39,7 @@
 	<h6><samp> LAST UPDATED: {{ last_updated }} </samp></h6>
 </div>
 <div class="custom-scroll scroll-y">
-	<table class = "sortable table table-sm table-bordered table-striped table-hover table-light" style="width:60%" align="center">
+	<table class = "sortable table table-sm table-bordered table-striped table-hover table-light" style="width:auto;" align="center">
 			<thead>
 				<tr>
 					<th scope="col"> Country </th>
@@ -55,6 +63,23 @@
 			{% endfor %}
 			</tbody>
 		</table>
+</div>
+<div class="row-sm-auto" align="center">
+  <h4><span class="badge badge-warning" onclick="myFunction()">Worldwide Stats</span></h4>
+</div>
+<div id="totalCases"> 
+<div>
+  <table class = "table table-sm table-bordered table-hover" style="width:auto;" align="center">
+      <tbody>
+      {% for r in total_cases %}
+        <tr>
+                    <td><span class="badge badge-success"> {{ r[0] }} </span></td>
+                    <td><strong>{{ r[1] }}</strong></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
 </div>
 </body>
 </html>

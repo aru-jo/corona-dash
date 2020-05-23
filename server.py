@@ -6,6 +6,7 @@ import os
 import pandas as pd
 from datetime import datetime
 from dateutil import tz
+import time
 # a script to prettify json return from esri arcgis covid data
 # to provide a much clearer endpoint for critical data than arcGIS
 # updated as soon as it is updated in the covid-19 api
@@ -17,6 +18,7 @@ if __name__ == '__main__':
 
 	@app.route('/', methods=['GET'])
 	def home_page():
+		'''
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_news.pkl')):
 			with open('covid_msrt_news.pkl', 'rb') as f_ptr:
 				covid_news_data = pickle.load(f_ptr)
@@ -27,7 +29,9 @@ if __name__ == '__main__':
 				covid_news_sort = pickle.load(f_ptr)
 		else:
 			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
-		return render_template('index.html', total_cases = covid_news_data[-1], covid_news_sort=covid_news_sort)
+		'''
+
+		return "<h2> Index Page </h2>"
 
 	@app.route('/display', methods=['GET'])
 	def display_data():
@@ -37,20 +41,21 @@ if __name__ == '__main__':
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_sort.pkl')):
 			with open('covid_msrt_sort.pkl', 'rb') as f_ptr:
 				countries_list = pickle.load(f_ptr)
+				total_cases = countries_list[-1]
+				del countries_list[-1]
 		for row in countries_list:
 			# TO-DO : A more robust way to deal with variable order for .values()
 			if row[0].strip() == 'US':
 				converted_time = row[-1] / 1000
 				last_time = datetime.utcfromtimestamp(converted_time).replace(tzinfo=from_zone)
 				local_time = last_time.astimezone(to_zone).strftime('%d %b %Y %H:%M')
-
 			if row[1]:
 				row.append(round((row[3] / row[1]) * 100, 2))
 				row.append(round((row[2] / row[1]) * 100, 2))
 			else:
 				row.append(0)
 				row.append(0)
-		return render_template('table_view.html', table=countries_list, last_updated=local_time)
+		return render_template('table_view.html', table=countries_list, last_updated=local_time, total_cases=total_cases)
 
 	@app.route('/api', methods=['GET'])
 	def return_data():
@@ -69,7 +74,4 @@ if __name__ == '__main__':
 		else:
 			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
 		return render_template('news_view.html', news_data = covid_news_data, length=len(covid_news_data))
-
-
 	app.run(host='0.0.0.0')
-
