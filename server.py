@@ -18,20 +18,11 @@ if __name__ == '__main__':
 
 	@app.route('/', methods=['GET'])
 	def home_page():
-		'''
-		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_news.pkl')):
-			with open('covid_msrt_news.pkl', 'rb') as f_ptr:
-				covid_news_data = pickle.load(f_ptr)
-		else:
-			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_sort.pkl')):
 			with open('covid_msrt_sort.pkl', 'rb') as f_ptr:
-				covid_news_sort = pickle.load(f_ptr)
-		else:
-			return "<h2> PICKLE FILE NOT PRESENT IN DIRECTORY </h2>"
-		'''
-
-		return "<h2> Index Page </h2>"
+				countries_list = pickle.load(f_ptr)
+				total_cases = countries_list[-1]
+		return render_template('index.html', total_cases=total_cases) 
 
 	@app.route('/display', methods=['GET'])
 	def display_data():
@@ -41,7 +32,6 @@ if __name__ == '__main__':
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_sort.pkl')):
 			with open('covid_msrt_sort.pkl', 'rb') as f_ptr:
 				countries_list = pickle.load(f_ptr)
-				total_cases = countries_list[-1]
 				del countries_list[-1]
 		for row in countries_list:
 			# TO-DO : A more robust way to deal with variable order for .values()
@@ -55,7 +45,7 @@ if __name__ == '__main__':
 			else:
 				row.append(0)
 				row.append(0)
-		return render_template('table_view.html', table=countries_list, last_updated=local_time, total_cases=total_cases)
+		return render_template('table_view.html', table=countries_list, last_updated=local_time)
 
 	@app.route('/api', methods=['GET'])
 	def return_data():
