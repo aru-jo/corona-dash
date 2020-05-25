@@ -17,11 +17,14 @@ def request_data(endpoint):
         return False
 
 def total_cases(d):
-    return [('Total Cases', d["data"]["total_cases"]),
-            ('Recovered Cases', d["data"]["recovery_cases"]),
-            ('Deaths', d["data"]["death_cases"]),
-            ('Last Updated', d["data"]["last_update"])]
-
+    try: 
+        lst = [('Total Cases', d["data"]["total_cases"]),
+                    ('Recovered Cases', d["data"]["recovery_cases"]),
+                    ('Deaths', d["data"]["death_cases"]),
+                    ('Last Updated', d["data"]["last_update"])]
+    except TypeError:
+        lst = False
+    return lst
 
 def request_news(query):
     newsapi = NewsApiClient(api_key=NEWS_KEY)
@@ -78,8 +81,11 @@ if __name__ == '__main__':
     print('API Data Pickled...')
     sorted_data = initial_sort(simplified_data)
     total_cases_lst = total_cases(request_data(TOTAL_CASES_ENDPOINT))
-    print(total_cases_lst)
-    sorted_data.append(total_cases_lst)
+    if total_cases_lst:
+        sorted_data.append(total_cases_lst)
+    else:
+        sorted_data.append(False)
+    print(sorted_data[-1])
     print('Display Data Sorted...')
     pickle_data_sorted(sorted_data)
     print('Display Data Pickled...')
