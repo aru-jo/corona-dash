@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>COVID - 19</title>
+  <link rel=icon href="static/images/coronavirus.svg">
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+  <!-- START DEPENDS -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/black-dashboard.css">
+  <script src="static/js/jquery.min.js" type="text/javascript"></script>
+  <script src="static/js/popper.min.js" type="text/javascript"></script>
+  <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='js/sorttable.js') }}"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a href="/">CoronaDash</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/news">News</a>
+        <a class="nav-item nav-link" href="/display">Cases</a>
+        <a class="nav-item nav-link" href="/api">API</a>
+      </div>
+    </div>
+  </nav>
+  <div class="row-sm-auto" align="center">
+    <span class="headline">API Guidelines</span>
+  </div>
+  <div class="row-sm-auto" align="center">
+    <p> To access the API endpoint with country specific data, click <a href="/api/v1/countries">http://localhost:5000/api/v1/countries</a></p>
+    <p> The above API gives a list of countries with number of confirmed cases, recovered, deaths, last updated (UTC) and region name </p>
+  </div>
+</body>
+</html>

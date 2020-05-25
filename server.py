@@ -48,6 +48,10 @@ if __name__ == '__main__':
 		return render_template('table_view.html', table=countries_list, last_updated=local_time)
 
 	@app.route('/api', methods=['GET'])
+	def display_api_page():
+		return render_template('api.html')
+
+	@app.route('/api/v1/countries', methods=['GET'])
 	def return_data():
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_api.pkl')):
 			with open('covid_msrt_api.pkl', 'rb') as f_ptr:
