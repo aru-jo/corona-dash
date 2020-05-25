@@ -1,10 +1,8 @@
 import requests
 import time
 import pickle
-import requests
 import json
 from datetime import datetime
-import xmltodict
 from newsapi import NewsApiClient
 NEWS_KEY = '324e8b378e9c44b2b4618956325d7307'
 API_ENDPOINT = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/2/query?where=1%3D1&outFields=Country_Region,Confirmed,Deaths,Recovered,Last_Update&outSR=4326&f=json'
@@ -89,3 +87,4 @@ if __name__ == '__main__':
     print('News Data Acquired...')
     pickle_news(simplify_news)
     print('News & Total Cases Data Pickled...')
+    # time.sleep(3000)

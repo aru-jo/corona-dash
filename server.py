@@ -3,7 +3,6 @@ from flask import request, jsonify, render_template
 import data_request
 import pickle
 import os
-import pandas as pd
 from datetime import datetime
 from dateutil import tz
 import time
