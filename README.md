@@ -28,6 +28,7 @@ $ pip install newsapi-python
 Open your terminal, cd into the project folder and run the following:
 
 ```sh
+$ python data_request.py
 $ python server.py
 ```
 
