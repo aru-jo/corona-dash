@@ -3,14 +3,9 @@ from flask import request, jsonify, render_template
 import data_request
 import pickle
 import os
-import pandas as pd
 from datetime import datetime
 from dateutil import tz
 import time
-# a script to prettify json return from esri arcgis covid data
-# to provide a much clearer endpoint for critical data than arcGIS
-# updated as soon as it is updated in the covid-19 api
-# server script flask api 
 
 if __name__ == '__main__':
 	app = flask.Flask(__name__)
@@ -48,6 +43,10 @@ if __name__ == '__main__':
 		return render_template('table_view.html', table=countries_list, last_updated=local_time)
 
 	@app.route('/api', methods=['GET'])
+	def display_api_page():
+		return render_template('api.html')
+
+	@app.route('/api/v1/countries', methods=['GET'])
 	def return_data():
 		if os.path.isfile(os.path.join(os.getcwd(), 'covid_msrt_api.pkl')):
 			with open('covid_msrt_api.pkl', 'rb') as f_ptr:

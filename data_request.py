@@ -1,33 +1,12 @@
 import requests
 import time
 import pickle
-import requests
 import json
 from datetime import datetime
-import xmltodict
 from newsapi import NewsApiClient
 NEWS_KEY = '324e8b378e9c44b2b4618956325d7307'
 API_ENDPOINT = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/2/query?where=1%3D1&outFields=Country_Region,Confirmed,Deaths,Recovered,Last_Update&outSR=4326&f=json'
 TOTAL_CASES_ENDPOINT = 'https://corona-virus-stats.herokuapp.com/api/v1/cases/general-stats'
-CDC_NEWSROOM = 'https://tools.cdc.gov/api/v2/resources/media/132608.rss'
-
-def conv_xml_to_json(rss_endpoint):
-    req = requests.get(rss_endpoint)
-    if req.status_code == 200:
-        pre_json = xmltodict.parse(req.text)
-        json_data_enc = json.dumps(pre_json)
-        return json.loads(json_data_enc)
-    else:
-        return False
-
-def latest_cdc_data(rss_endpoint, k):
-    json_data = conv_xml_to_json(rss_endpoint)
-    lst_of_articles = json_data["rss"]["channel"]["item"]
-    print(len(lst_of_articles))
-    for article in lst_of_articles:
-        print(article["title"])
-
-
 
 def request_data(endpoint):
     req = requests.get(endpoint)
@@ -106,8 +85,6 @@ if __name__ == '__main__':
     print('Display Data Pickled...')
     simplify_news = return_top_k_news_results(request_news('COVID'), 20)
     print('News Data Acquired...')
-    # simplify_news.append(total_cases_lst)
     pickle_news(simplify_news)
     print('News & Total Cases Data Pickled...')
-    # latest_cdc_data(CDC_NEWSROOM, 10)
-    # time.sleep(3600)
+    # time.sleep(3000)
