@@ -189,6 +189,10 @@ a {
   background-color: transparent;
 }
 
+.news-wrapper{
+  padding: 0 20%; 
+}
+
 a:hover {
   color: #c221a9;
   text-decoration: none;
